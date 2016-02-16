@@ -103,9 +103,9 @@ class QQ:
         ).decode().replace('/', '-').replace('+', '*').replace('=', '_')
 
     def login(self):
-        for x in self.requests.cookies:
-            if x.name == 'ptvfsession':
-                self.session = x.value
+        d = self.requests.cookies.get_dict()
+        if 'ptvfsession' in d:
+            self.session = d['ptvfsession']
 
         par = {
             'action'                : '2-0-1450538632070',
