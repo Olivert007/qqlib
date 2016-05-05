@@ -193,6 +193,10 @@ class QQ:
         return hash & 0x7fffffff
 
     def blog(self):
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36'
+        }
+        self.requests.get(self.urlQzone, headers=headers)
         par = {
             'hostUin'   : self.qq,
             'uin'       : self.qq,
