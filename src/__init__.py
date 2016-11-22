@@ -13,6 +13,7 @@ class QQ:
     appid       = 549000912
     urlLogin    = 'http://xui.ptlogin2.qq.com/cgi-bin/xlogin'
     urlCheck    = 'http://check.ptlogin2.qq.com/check'
+    urlSig      = 'http://captcha.qq.com/cap_union_getsig_new'
     urlCap      = 'http://captcha.qq.com/cap_union_show'
     urlImg      = 'http://captcha.qq.com/getimgbysig'
     urlSubmit   = 'http://ptlogin2.qq.com/login'
@@ -139,14 +140,16 @@ class QQ:
     def getVerifyCode(self):
         par = {
             'clientype' : 2,
+            'apptype'   : 2,
+            'captype'   : '',
+            'protocol'  : 'http',
             'uin'       : self.qq,
             'aid'       : self.appid,
             'cap_cd'    : self.vcode,
-            'pt_style'  : 32,
-            'rand'      : 0.5994133797939867,
+            'rand'      : 0.5994133797939867
         }
-        r = self.requests.get(self.urlCap, params=par)
-        vsig = re.findall('g_vsig = "([^"]+)"', r.text)[0]
+        r = self.requests.get(self.urlSig, params=par)
+        vsig = r.json()['vsig']
         par = {
             'clientype'     : 2,
             'uin'           : self.qq,
